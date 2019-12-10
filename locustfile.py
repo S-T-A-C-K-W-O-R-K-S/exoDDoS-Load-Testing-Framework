@@ -1,8 +1,10 @@
+import csv
+
 from locust import HttpLocust, TaskSet
 from locust import between
-from test_hooks import login, logout
+
 from task_sequences import FirstTaskSequence, SecondTaskSequence
-import csv
+from test_hooks import login, logout
 
 
 red_pill = None
@@ -24,7 +26,7 @@ class UserBehavior(TaskSet):
             
         login(self, self.username, self.password)
 
-    def on_stop(self): # # on_stop is called when the task set is stopping, after the tasks have executed
+    def on_stop(self): # on_stop is called when the task set is stopping, after the tasks have executed
         logout(self, self.username)
 
 
