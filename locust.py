@@ -1,4 +1,4 @@
-from locustfile_imports import *
+from locust_imports import *
 
 
 red_pill = None
