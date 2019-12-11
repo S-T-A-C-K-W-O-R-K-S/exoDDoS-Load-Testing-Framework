@@ -1,10 +1,4 @@
-import csv
-
-from locust import HttpLocust, TaskSet
-from locust import between
-
-from task_sequences import FirstTaskSequence, SecondTaskSequence
-from test_hooks import login, logout
+from locustfile_imports import *
 
 
 red_pill = None
@@ -37,8 +31,7 @@ class WebsiteUser(HttpLocust):
     task_set = UserBehavior
     wait_time = between(1.0, 2.5)
 
-    host = "https://api.meddbase.com/patientportalapi"
-    sock = None
+    host = env.host
 
     def __init__(self):
         super(WebsiteUser, self).__init__()

@@ -1,11 +1,4 @@
-class Environment:
-
-    def __init__(self, client_key, is_oh):
-        self.client_key = client_key
-        self.is_oh = is_oh
-
-
-env = Environment("api-brl", "true")
+from environment import env
 
 
 def login(self, username, password):  # on_start
