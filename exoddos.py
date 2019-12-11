@@ -1,12 +1,9 @@
-from locust_imports import *
-
-
-red_pill = None
+from exoddos_imports import *
 
 
 class UserBehavior(TaskSet):
 
-    tasks = {FirstTaskSequence: 50, SecondTaskSequence: 50}  # both task sets have a 50% chance to be selected for execution
+    tasks = {OpenReferrals: 50, ClosedReferrals: 50} # both task sets have a 50% chance to be selected for execution
 
     session_token = None
 
@@ -24,6 +21,9 @@ class UserBehavior(TaskSet):
 
     def on_stop(self):  # on_stop is called when the task set is stopping, after the tasks have executed
         logout(self, self.username, self.session_token)
+
+
+red_pill = None
 
 
 class WebsiteUser(HttpLocust):

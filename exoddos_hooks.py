@@ -1,4 +1,4 @@
-from environment import env
+from exoddos_environment import env
 
 
 def login(self, username, password):  # on_start
@@ -11,6 +11,7 @@ def login(self, username, password):  # on_start
                 session_token = response.json()['result']['Token']
                 print(f"logged in with username '{username}' and password '{password}'")
                 print(f"session token: {session_token}")
+                print(f"ASP.NET session ID: {response.cookies['ASP.NET_SessionId']}")
                 return session_token
 
             else:

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+locust -f exoddos.py --logfile=exoddos.log

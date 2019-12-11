@@ -1,3 +1,0 @@
-#!/bin/bash
-
-locust -f locust.py --logfile=locust.log

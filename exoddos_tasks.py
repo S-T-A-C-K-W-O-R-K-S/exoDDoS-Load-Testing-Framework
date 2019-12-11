@@ -2,31 +2,23 @@ from locust import TaskSequence
 from locust import seq_task
 
 
-class FirstTaskSequence(TaskSequence):
+class OpenReferrals(TaskSequence):
 
     @seq_task(1)
     def do_something(self):
-        print("1.1")
+        print("first task: FIND_A_WAY_TO_PASS_THE_SESSION_TOKEN_TO_THIS_FUNCTION")
 
     @seq_task(2)
-    def do_something_else(self):
-        print("1.2")
-
-    @seq_task(3)
     def return_to_parent(self):
         TaskSequence.interrupt(self, reschedule=True)
 
 
-class SecondTaskSequence(TaskSequence):
+class ClosedReferrals(TaskSequence):
 
     @seq_task(1)
     def do_something(self):
-        print("2.1")
+        print("second task")
 
     @seq_task(2)
-    def do_something_else(self):
-        print("2.2")
-
-    @seq_task(3)
     def return_to_parent(self):
         TaskSequence.interrupt(self, reschedule=True)
