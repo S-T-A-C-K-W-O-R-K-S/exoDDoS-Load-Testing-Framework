@@ -37,6 +37,12 @@ class WebsiteUser(HttpLocust):
         super(WebsiteUser, self).__init__()
         global red_pill
         if red_pill is None:
-            with open('user_credentials.csv') as stream:
+            with open(Path("user_credentials.csv")) as stream:
                 reader = csv.reader(stream)
                 red_pill = list(reader)
+            
+    def setup(self):
+        create_temp_directory(self, env.temp_directory)
+
+    def teardown(self):
+        delete_temp_directory(self, env.temp_directory)
