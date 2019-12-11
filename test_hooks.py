@@ -1,4 +1,5 @@
 class Environment:
+
     def __init__(self, client_key, is_oh):
         self.client_key = client_key
         self.is_oh = is_oh
