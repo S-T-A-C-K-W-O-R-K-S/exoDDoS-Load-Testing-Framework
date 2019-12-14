@@ -1,4 +1,4 @@
-from exoddos_environment import env
+from environment import env
 
 
 def login(self, username, password):  # on_start

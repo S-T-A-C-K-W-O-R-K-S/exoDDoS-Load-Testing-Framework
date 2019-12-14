@@ -1,4 +1,4 @@
-from exoddos_imports import *
+from imports import *
 
 
 class UserBehavior(TaskSet):
