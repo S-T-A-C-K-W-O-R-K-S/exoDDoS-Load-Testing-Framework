@@ -1,2 +1,2 @@
 # exoDDoS
-Load/Performance Testing Framework Running On LOCUST.IO
+Enterprise-Grade Python Load/Performance Testing Framework
