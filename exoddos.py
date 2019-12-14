@@ -18,13 +18,17 @@ class UserBehavior(TaskSet):
     def on_stop(self):  # on_stop is called when the task set is stopping, after the tasks have executed
         logout(self, self.username, self.session_token)
 
-    @task(50)  # 50% chance for this task to be selected for execution
-    def open_referrals_task(self):
-        open_referrals(self, self.session_token)
+    @task(33)  # 33% chance for this task to be selected for execution
+    def referrals_task(self):
+        referrals(self, self.username, self.session_token, status = 0, page_size = 20, page_number = 1)
 
-    @task(50)  # 50% chance for this task to be selected for execution
-    def closed_referrals_task(self):
-        closed_referrals(self, self.session_token)
+    @task(33)  # 33% chance for this task to be selected for execution
+    def employees_task(self):
+        employees(self, self.username, self.session_token, page_size = 10, page_number = 1)
+
+    @task(33)  # 33% chance for this task to be selected for execution
+    def absences_task(self):
+        absences(self, self.username, self.session_token, page_sort_descending = "true", page_size = 10, page_number = 1)
 
 
 red_pill = None
