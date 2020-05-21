@@ -1,49 +1,87 @@
 from environment import env
+from locust.events import request_failure
 
 
-def login(self, username, password):  # on_start
+def on_start_setup(self, username, password):  # on_start
 
-    with self.client.post(f"/auth/login?client-key={env.client_key}&is-oh={env.is_oh}",
-        json={"username": f"{username}", "password": f"{password}"},
+    with self.client.post(f"/auth/login",
+        json={"Username": f"{username}", "Password": f"{password}"},
         catch_response=True) as response:
 
             if response.status_code == 200:
-                session_token = response.json()['result']['Token']
-                asp_net_session_id = response.cookies['ASP.NET_SessionId']
+                session_id = response.json()["SessionID"]
+                session_cookie = response.cookies[".AspNet.ApplicationCookie"]
 
-                print(f"logged in with username '{username}' and password '{password}'")
-                print(f"Session Token: {session_token}")
-                print(f"ASP.NET Session ID: {asp_net_session_id}")
-
-                return session_token
+                print(f"User '{username}' Has Logged In With Password '{password}'")
+                print(f"Session ID '{session_id}' Has Been Created")
 
             else:
-                print(f"logging in has failed with error code: {response.status_code}")
+                session_id = "NO_SESSION"
+                print(f"Logging In Has Failed With Error Code {response.status_code}")
 
+    with self.client.post(f"/auth/disclaimer",
+        headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
+        catch_response=True) as response:
 
-def logout(self, username, session_token):  # on_stop
+            if response.text == '"DISCLAIMER_ACCEPTED"':
+                session_cookie = response.cookies[".AspNet.ApplicationCookie"]
+                print(f"Session ID {session_id}: User '{username}' Has Accepted The Disclaimer")
+                
+                if env.debug_mode:
+                    print(f"[DEBUG] :: Session Cookie: {session_cookie}")
 
-    with self.client.post(f"/auth/logout?client-key={env.client_key}&is-oh={env.is_oh}&token={session_token}",
+    with self.client.get(f"/home/configuration",
+        headers={"Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
         catch_response=True) as response:
 
             if response.status_code == 200:
-                print(f"{username} has logged out")
-                print(f"session '{session_token}' has been terminated")
+                user_collaboration_id = "NO_COLLABORATION"
+                user_id = response.json()["User"]["ID"]
+
+                for preference in response.json()["User"]["MyPreferences"]:
+                    if preference["ID"] == "User_IDCollaborationSelected":
+                        user_collaboration_id = preference["Value"]
+
+                print(f"Session ID {session_id}: User '{username}' With ID '{user_id}' Is In Collaboration ID '{user_collaboration_id}'")
 
             else:
-                print(f"logging out has failed with error code: {response.status_code}")
+                print(f"Retrieving The Application Configuration Has Failed With Error Code {response.status_code}")
+
+    return {"session_id": f"{session_id}", "session_cookie": f"{session_cookie}", "user_collaboration_id": f"{user_collaboration_id}"}
 
 
-# # # # # # # # # # # # # # # # #
-#                               #
-#   ORDER OF EVENTS             #
-#                               #
-#       1. Locust SETUP         #
-#       2. TaskSet SETUP        #
-#       3. TaskSet ON_START     #
-#       4. TaskSet TASKS...     #
-#       5. TaskSet ON_STOP      #
-#       6. TaskSet TEARDOWN     #
-#       7. Locust TEARDOWN      #
-#                               #
-# # # # # # # # # # # # # # # # #
+def on_stop_teardown(self, username, session_id, session_cookie):  # on_stop
+
+    with self.client.get(f"/auth/logout",
+        headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
+        catch_response=True) as response:
+
+            if response.status_code == 200:
+                print(f"Session ID {session_id}: User '{username}' Has Logged Out And The Session Has Been terminated")
+
+            else:
+                print(f"Logging Out Has Failed With Error Code {response.status_code}")
+
+
+                                                                # # # # # # # # # # # # # # # # #
+                                                                #                               #
+                                                                #   ORDER OF EVENTS             #
+                                                                #                               #
+                                                                #       1. Locust SETUP         #
+                                                                #       2. TaskSet SETUP        #
+                                                                #       3. TaskSet ON_START     #
+                                                                #       4. TaskSet TASKS...     #
+                                                                #       5. TaskSet ON_STOP      #
+                                                                #       6. TaskSet TEARDOWN     #
+                                                                #       7. Locust TEARDOWN      #
+                                                                #                               #
+                                                                # # # # # # # # # # # # # # # # #
+
+
+def on_failure(request_type, name, response_time, exception, **kwargs):  # on_request_failure
+    if env.debug_mode:
+        print(f"[DEBUG] :: Exception {request_type} Request URL: {exception.request.url}")
+        print(f"[DEBUG] :: Exception Response Code: {exception.response.status_code}")
+        print(f"[DEBUG] :: Exception Response Message: {exception.response.json()['Message']}")
+
+request_failure += on_failure

@@ -1,25 +1,29 @@
 from environment import env
 
-def referrals(self, username, session_token, status, page_size, page_number):
 
-    response = self.client.get(f"/referrals/referrals?status={status}&page-size={page_size}&page-number={page_number}&" +
-        f"client-key={env.client_key}&token={session_token}")
+def get_inbasket(self, session_id, session_cookie, username, user_collaboration_id, orderby, top, skip, inlinecount):
+    with self.client.get(f"/Baskets/inBasket?orderby={orderby}&top={top}&skip={skip}&inlinecount={inlinecount}",
+        headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}",
+            "CBPm-IDCollaboration": f"{user_collaboration_id}", "Accept": f"application/json"},
+        catch_response=True) as response:
 
-    print(f"user '{username}' has retrieved {response.json()['result']['TotalCount']} referrals")
-
-
-def employees(self, username, session_token, page_size, page_number):
-    
-    response = self.client.post(f"/patients/patients?page-size={page_size}&page-number={page_number}&" +
-        f"client-key={env.client_key}&token={session_token}",
-        json={"customData":["RecallDueDate","LastActivity","FitnessOutcome"]})
-
-    print(f"user '{username}' has retrieved {response.json()['result']['TotalCount']} employees")
+            if response.status_code == 200:
+                retrieved_count = len(response.json()["Items"])
+                print(f"Session ID {session_id}: User '{username}' Has Retrieved {retrieved_count} In-Basket Items")
+            
+            else:
+                print(f"Retrieving In-Basket Items Has Failed With Error Code {response.status_code}")
 
 
-def absences(self, username, session_token, page_sort_descending, page_size, page_number):
-    
-    response = self.client.get(f"/absences/absences?page-sort-descending={page_sort_descending}&page-size={page_size}&page-number={page_number}&" +
-        f"client-key={env.client_key}&token={session_token}")
+def get_workzone(self, session_id, session_cookie, username, user_collaboration_id, orderby, top, skip, inlinecount):
+    with self.client.get(f"/Baskets/workzone?orderby={orderby}&top={top}&skip={skip}&inlinecount={inlinecount}",
+        headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}",
+            "CBPm-IDCollaboration": f"{user_collaboration_id}", "Accept": f"application/json"},
+        catch_response=True) as response:
 
-    print(f"user '{username}' has retrieved {response.json()['result']['TotalCount']} absences")
+            if response.status_code == 200:
+                retrieved_count = len(response.json()["Items"])
+                print(f"Session ID {session_id}: User '{username}' Has Retrieved {retrieved_count} Workzone Items")
+            
+            else:
+                print(f"Retrieving Workzone Items Has Failed With Error Code {response.status_code}")

@@ -1,10 +1,8 @@
 class env:
 
-    host = "https://api.meddbase.com/patientportalapi"
-    client_key = "api-brl"
-    is_oh = "true"
+    debug_mode = False
 
-    def __init__(self, host, client_key, is_oh):
+    host = "CBPM"
+
+    def __init__(self, host):
         self.host = host
-        self.client_key = client_key
-        self.is_oh = is_oh
