@@ -1,0 +1,20 @@
+### CentOS 8.1 Boot
+
+sudo dnf update -y
+sudo dnf install python3 python3-devel python3-setuptools python3-wheel -y
+sudo dnf install gcc openssl-devel bzip2-devel libffi-devel -y
+sudo dnf install make -y
+
+cd /usr/src
+
+sudo wget https://www.python.org/ftp/python/3.7.7/Python-3.7.7.tgz
+sudo tar xzf Python-3.7.7.tgz
+sudo rm Python-3.7.7.tgz
+
+cd Python-3.7.7
+
+sudo ./configure --enable-optimizations
+sudo make altinstall
+
+sudo pip3 install locust
+locust -V
