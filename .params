@@ -1,8 +1,0 @@
-# https://docs.locust.io/en/stable/configuration.html#command-line-options
-
-
-# run exoDDoS with log file
-locust -f exoddos.py --logfile=exoddos.log
-
-# run exoDDoS with console logging
-locust -f exoddos.py
