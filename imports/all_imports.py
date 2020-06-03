@@ -1,4 +1,4 @@
-import csv
+import csv, os
 
 from imports.environment import *
 from imports.hooks import *

@@ -47,7 +47,7 @@ class WebsiteUser(HttpLocust):
         super(WebsiteUser, self).__init__()
         global user_pool
         if user_pool is None:
-            with open(Path("user_credentials.csv")) as stream:
+            with open(Path("environment" + os.path.sep + "user_credentials.csv")) as stream:
                 reader = csv.reader(stream)
                 user_pool = list(reader)
 
