@@ -1,4 +1,4 @@
-from ../imports/environment import env
+from imports.environment import env
 
 
 def on_start_setup(self, username, password):

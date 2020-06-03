@@ -1,4 +1,4 @@
-from imports/all_imports import *
+from imports.all_imports import *
 
 
 class UserBehavior(TaskSet):

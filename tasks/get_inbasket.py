@@ -1,4 +1,4 @@
-from ../imports/environment import env
+from imports.environment import env
 
 
 def get_inbasket(self, session_id, session_cookie, username, user_collaboration_id, orderby, top, skip, inlinecount):

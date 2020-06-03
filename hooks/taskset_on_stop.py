@@ -1,4 +1,4 @@
-from ../imports/environment import env
+from imports.environment import env
 
 
 def on_stop_teardown(self, username, session_id, session_cookie):

@@ -1,4 +1,4 @@
-from ../imports/environment import env
+from imports.environment import env
 from locust.events import request_failure
 
 
