@@ -1,6 +1,6 @@
-FROM locustio/locust:0.14.6
+FROM locustio/locust:1.0.3
 
 WORKDIR /exoDDoS
 COPY . .
 
-CMD ["locust", "-f", "exoddos.py"]
+CMD ["-f", "exoddos.py"]
