@@ -5,10 +5,10 @@ class UserBehavior(TaskSet):
 
     def on_start(self):  # on_start is called when a locust spawns, before any task is scheduled for execution
 
-        if len(user_pool) > 0:
-            self.username, self.password = user_pool.pop()
+        if len(env.user_pool) > 0:
+            self.username, self.password = env.user_pool.pop()
 
-        elif len(user_pool) == 0:
+        elif len(env.user_pool) == 0:
             self.username = "NO_USERNAME"
             self.password = "NO_PASSWORD"
             print("The Swarm Has Exceeded The Number Of Available Credentials")
@@ -33,20 +33,16 @@ class UserBehavior(TaskSet):
             orderby=f"ChangeDate%20desc", top=50, skip=2, inlinecount="allpages")
 
 
-user_pool = None
+class WebUser(HttpUser):
 
-
-class WebsiteUser(HttpLocust):
-
-    task_set = UserBehavior
+    tasks = [UserBehavior]
     wait_time = between(1.0, 2.5)
 
     host = env.host
 
-    def __init__(self):
-        super(WebsiteUser, self).__init__()
-        global user_pool
-        if user_pool is None:
-            with open(Path("environment" + os.path.sep + "user_credentials.csv")) as stream:
+    def __init__(self, environment):
+        super(WebUser, self).__init__(environment)
+        if env.user_pool is None:
+            with open(Path(env.credentials)) as stream:
                 reader = csv.reader(stream)
-                user_pool = list(reader)
+                env.user_pool = list(reader)
