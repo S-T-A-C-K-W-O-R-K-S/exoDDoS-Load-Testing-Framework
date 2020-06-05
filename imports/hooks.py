@@ -1,2 +1,4 @@
-from hooks.taskset_on_start import on_start_setup
-from hooks.taskset_on_stop import on_stop_teardown
+from hooks.locust_on_init import on_init
+from hooks.locust_on_test_start import on_test_start
+from hooks.locust_on_test_stop import on_test_stop
+from hooks.locust_on_request_failure import on_request_failure
