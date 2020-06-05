@@ -6,7 +6,7 @@ Enterprise-Grade Python Load/Performance Testing Framework
 ### Quick Start
 
 1. navigate to the exoDDoS directory, if not already in that context
-2. install the exoDDoS requirements by executing...
+2. install the exoDDoS requirements by executing:
     - `python -m pip install -r requirements.txt` on Windows
     - `pip install -r requirements.txt` on UNIX-based systems
 3. execute `locust -f exoddos.py` to launch the framework
