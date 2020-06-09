@@ -42,6 +42,7 @@ class WebUser(HttpUser):
 
     def __init__(self, environment):
         super(WebUser, self).__init__(environment)
+        
         if env.user_pool is None:
             with open(Path(env.credentials)) as stream:
                 reader = csv.reader(stream)
