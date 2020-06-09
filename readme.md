@@ -25,6 +25,10 @@ Enterprise-Grade Python Load/Performance Testing Framework
 3. `docker start -ai exoddos`
 4. `docker stop exoddos`
 
+> Run As Debug User
+
+It is possible to run exoDDoS from a Docker container as a single ephemeral user, for debugging purposes, which overrides the built-in credentials file. To do so, append the `-e debug-user="USERNAME"` and `-e debug-pass="PASSWORD"` flags while executing the run command for the Docker container.
+
 ***
 
 ### Troubleshooting
