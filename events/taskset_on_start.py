@@ -11,7 +11,11 @@ def on_start_setup(self, username, password):
                 session_id = response.json()["SessionID"]
                 session_cookie = response.cookies[".AspNet.ApplicationCookie"]
 
-                print(f"User '{username}' Has Logged In With Password '{password}'")
+                if env.debug_mode:
+                    print(f"[DEBUG] :: User '{username}' Has Logged In With Password '{password}'")
+                else:
+                    print(f"User '{username}' Has Logged In")
+
                 print(f"Session ID '{session_id}' Has Been Created")
 
             else:
