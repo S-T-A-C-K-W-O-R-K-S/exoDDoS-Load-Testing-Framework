@@ -1,6 +1,3 @@
-from imports.environment import env
-
-
 def on_stop_teardown(self, username, session_id, session_cookie):
 
     with self.client.get(f"/auth/logout",
@@ -8,7 +5,7 @@ def on_stop_teardown(self, username, session_id, session_cookie):
         catch_response=True) as response:
 
             if response.status_code == 200:
-                print(f"Session ID {session_id}: User '{username}' Has Logged Out And The Session Has Been terminated")
+                print(f"Session ID {session_id}: User '{username}' Has Logged Out And Session ID '{session_id}' Has Been Terminated")
 
             else:
-                print(f"Logging Out Has Failed With Error Code {response.status_code}")
+                print(f"Session ID {session_id}: Logging Out As '{username}' In Session ID '{session_id}' Has Failed With Error Code {response.status_code}")
