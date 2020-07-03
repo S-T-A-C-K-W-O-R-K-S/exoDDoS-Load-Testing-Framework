@@ -17,17 +17,22 @@ Enterprise-Grade Python Load/Performance Testing Framework
 
 > One-Time Commands
 
-1. `docker build -t exoddos:1.1.1 .`
-2. `docker run -it --name exoddos -p 5557:5557 -p 8089:8089 exoddos:1.1.1`
+1. `docker build -t exoddos:1.2.0 .`
+2. `docker run -it --name exoddos -p 5557:5557 -p 8089:8089 exoddos:1.2.0`
 
 > Reuse exoDDoS Container
 
 3. `docker start -ai exoddos`
 4. `docker stop exoddos`
+5. `docker ps -a` - utility command to display all local containers
 
 > Run As Debug User
 
-It is possible to run exoDDoS from a Docker container as a single ephemeral user, for debugging purposes, which overrides the built-in credentials file. To do so, append the `-e debug-user="USERNAME"` and `-e debug-pass="PASSWORD"` flags while executing the run command for the Docker container.
+It is possible to run exoDDoS as a single ephemeral user, for debugging purposes, which overrides the credentials file referenced in the codebase.
+
+To do so from a Docker container, append the `-e debug-user="USERNAME"` and `-e debug-pass="PASSWORD"` flags while executing the run command for the Docker container.
+
+Running exoDDoS as a debug user without Docker requires setting a pair of environment variables for the current terminal session, however achieving this depends on the shell in use. For instance, in PowerShell, the syntax would be `$ENV:debug-user="USERNAME"` and, respectively, `$ENV:debug-pass="PASSWORD"`.
 
 ***
 
@@ -44,8 +49,11 @@ It is possible to run exoDDoS from a Docker container as a single ephemeral user
 3. uninstall all PIP packages by executing:
     - `python -m pip uninstall -r snapshot.txt -y` on Windows
     - `pip uninstall -r snapshot.txt -y` on UNIX-based systems
-4. navigate to the exoDDoS directory, if not already in that context
-5. install the exoDDoS requirements by executing:
+4. install the latest version of wheel by executing:
+    - `python -m pip install wheel` on Windows
+    - `pip install wheel` on UNIX-based systems
+5. navigate to the exoDDoS directory, if not already in that context
+6. install the exoDDoS requirements by executing:
     - `python -m pip install -r requirements.txt` on Windows
     - `pip install -r requirements.txt` on UNIX-based systems
 
@@ -60,11 +68,14 @@ It is possible to run exoDDoS from a Docker container as a single ephemeral user
 3. uninstall all PIP packages by executing:
     - `python -m pip uninstall -r snapshot.txt -y` on Windows
     - `pip uninstall -r snapshot.txt -y` on UNIX-based systems
-4. install the latest version of locust by executing:
+4. install the latest version of wheel by executing:
+    - `python -m pip install wheel` on Windows
+    - `pip install wheel` on UNIX-based systems
+5. install the latest version of locust by executing:
     - `python -m pip install locust` on Windows
     - `pip install locust` on UNIX-based systems
-5. navigate to the exoDDoS directory, if not already in that context
-6. save all the freshly installed PIP packages as the new requirements by executing:
+6. navigate to the exoDDoS directory, if not already in that context
+7. save all the freshly installed PIP packages as the new requirements by executing:
     - `python -m pip freeze > requirements.txt` on Windows
     - `pip freeze > requirements.txt` on UNIX-based systems
 
