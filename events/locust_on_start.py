@@ -3,7 +3,7 @@ from environment.exoddos import exoddos
 
 def on_start_setup(self, username, password):
 
-    with self.client.post(f"/auth/login",
+    with self.client.post(f"/Auth/Login",
         json={"Username": f"{username}", "Password": f"{password}"},
         catch_response=True) as response:
 
@@ -12,17 +12,17 @@ def on_start_setup(self, username, password):
                 session_cookie = response.cookies[".AspNet.ApplicationCookie"]
 
                 if exoddos.debug_mode:
-                    print(f"[DEBUG] :: Session ID NO_SESSION: User '{username}' Has Logged In With Password '{password}' And", end = " ")
+                    print(f"[DEBUG] :: NO_SESSION: User '{username}' Has Logged In With Password '{password}' And", end = " ")
                 else:
-                    print(f"Session ID NO_SESSION: User '{username}' Has Logged In And", end = " ")
+                    print(f"________NO_SESSION: User '{username}' Has Logged In And", end = " ")
 
                 print(f"Session ID '{session_id}' Has Been Created")
 
             else:
                 session_id = "NO_SESSION"
-                print(f"Session ID NO_SESSION: Logging In As '{username}' Has Failed With Error Code {response.status_code}")
+                print(f"________NO_SESSION: Logging In As '{username}' Has Failed With Error Code {response.status_code}")
 
-    with self.client.post(f"/auth/disclaimer",
+    with self.client.post(f"/Auth/Disclaimer",
         headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
         catch_response=True) as response:
 
@@ -34,9 +34,9 @@ def on_start_setup(self, username, password):
                     print(f"[DEBUG] :: Session ID {session_id} Cookie: {session_cookie}")
 
             else:
-                print(f"Session ID {session_id}: Accepting The Disclaimer Has Failed With Error Code {response.status_code}")
+                print(f"Session ID {session_id}: Accepting The Disclaimer By User '{username}' Has Failed With Error Code {response.status_code}")
 
-    with self.client.get(f"/home/configuration",
+    with self.client.get(f"/Home/Configuration",
         headers={"Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
         catch_response=True) as response:
 
@@ -51,6 +51,6 @@ def on_start_setup(self, username, password):
                 print(f"Session ID {session_id}: User '{username}' With ID '{user_id}' Is In Collaboration ID '{user_collaboration_id}'")
 
             else:
-                print(f"Session ID {session_id}: Retrieving The Application Configuration Has Failed With Error Code {response.status_code}")
+                print(f"Session ID {session_id}: Retrieving The Application Configuration By User '{username}' Has Failed With Error Code {response.status_code}")
 
     return {"session_id": f"{session_id}", "session_cookie": f"{session_cookie}", "user_collaboration_id": f"{user_collaboration_id}"}

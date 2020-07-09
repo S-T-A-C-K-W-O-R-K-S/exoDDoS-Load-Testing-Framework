@@ -1,6 +1,6 @@
 def on_stop_teardown(self, username, session_id, session_cookie):
 
-    with self.client.get(f"/auth/logout",
+    with self.client.get(f"/Auth/Logout",
         headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
         catch_response=True) as response:
 
