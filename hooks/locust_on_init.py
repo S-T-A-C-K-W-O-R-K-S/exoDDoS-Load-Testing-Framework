@@ -12,15 +12,8 @@ def checker(environment):
             print(f"Test Run Will Terminate Prematurely Due To A Failure Rate Of {environment.runner.stats.total.fail_ratio}")
             print()
 
-            environment.runner.quit()
+            environment.runner.quit()  # cleanup may potentially take a while, since all running tasksets need to be interrupted
             return
-
-            # TODO: Initiate Shutdown, Terminate Active Sessions & Remove SYS Import, RUNNER.QUIT()
-            # LOCUST.MAIN.SHUTDOWN()
-
-#    if environment.runner.state == STATE_STOPPED:
-#        if exoddos.shutdown_on_stop:
-#           TODO: Initiate Shutdown
 
 
 @events.init.add_listener
