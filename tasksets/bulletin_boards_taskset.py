@@ -9,12 +9,12 @@ class BulletinBoards(TaskSet):
     @task(1)
     @tag("bb")
     def get_bulletin_board_list_task(self):
-        get_bulletin_board_list(self, self.user.session_id, self.user.session_cookie, self.user.username, self.user.user_collaboration_id)
+        get_bulletin_board_list(self)
 
     @task(1)
     @tag("bb")
     def get_bulletin_board_tree_task(self):
-        get_bulletin_board_tree(self, self.user.session_id, self.user.session_cookie, self.user.username, self.user.user_collaboration_id)
+        get_bulletin_board_tree(self)
     
     @task(2)  # 50% chance for the taskset to be interrupted
     @tag("bb")

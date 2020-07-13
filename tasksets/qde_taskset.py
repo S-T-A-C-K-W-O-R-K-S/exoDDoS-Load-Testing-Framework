@@ -8,7 +8,7 @@ class QDE(TaskSet):
     @task(1)
     @tag("qde")
     def get_qde_task(self):
-        get_qde(self, self.user.session_id, self.user.session_cookie, self.user.username, self.user.user_collaboration_id)
+        get_qde(self)
     
     @task(1)  # 50% chance for the taskset to be interrupted
     @tag("qde")

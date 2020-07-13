@@ -11,22 +11,22 @@ class Baskets(TaskSet):
     @task(1)
     @tag("baskets")
     def get_workzone_task(self):
-        get_workzone(self, self.user.session_id, self.user.session_cookie, self.user.username, self.user.user_collaboration_id)
+        get_workzone(self)
 
     @task(1)
     @tag("baskets")
     def get_inbasket_task(self):
-        get_inbasket(self, self.user.session_id, self.user.session_cookie, self.user.username, self.user.user_collaboration_id)
+        get_inbasket(self)
 
     @task(1)
     @tag("baskets")
     def get_outbasket_task(self):
-        get_outbasket(self, self.user.session_id, self.user.session_cookie, self.user.username, self.user.user_collaboration_id)
+        get_outbasket(self)
 
     @task(1)
     @tag("baskets")
     def get_waste_basket_task(self):
-        get_waste_basket(self, self.user.session_id, self.user.session_cookie, self.user.username, self.user.user_collaboration_id)
+        get_waste_basket(self)
 
     @task(4)  # 50% chance for the taskset to be interrupted
     @tag("baskets")

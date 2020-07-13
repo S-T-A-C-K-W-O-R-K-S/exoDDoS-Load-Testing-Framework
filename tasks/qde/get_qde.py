@@ -1,10 +1,12 @@
 import random
 
+from environment.utility import utility
 
-def get_qde(self, session_id, session_cookie, username, user_collaboration_id):
+
+def get_qde(self):
 
     with self.client.get(f"/QDE",
-        headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}", "CBPm-IDCollaboration": f"{user_collaboration_id}"},
+        headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 
             qde_types = []
@@ -15,14 +17,14 @@ def get_qde(self, session_id, session_cookie, username, user_collaboration_id):
                 for qde_type_id in response.json()["Items"]:
                     qde_types.append(qde_type_id["IDParameter"])
 
-                print(f"Session ID {session_id}: User '{username}' Has Retrieved {retrieved_count} QDE Types")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} QDE Types")
             
             else:
-                print(f"Session ID {session_id}: Retrieving QDE Types By User '{username}' Has Failed With Error Code {response.status_code}")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving QDE Types By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
 
-    if (len(qde_types) > 0):
+    if len(qde_types) > 0:
         random_qde_type = random.choice(qde_types)
-        print(f"Session ID {session_id}: User '{username}' Has Randomly Selected QDE Type ID '{random_qde_type}'")
+        print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Randomly Selected QDE Type ID '{random_qde_type}'")
 
     else:
         self.interrupt()
@@ -30,12 +32,12 @@ def get_qde(self, session_id, session_cookie, username, user_collaboration_id):
     # TODO: Implement Support For Getting QDE Filters
 
     with self.client.get(f"/QDE/{random_qde_type}",
-        headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}", "CBPm-IDCollaboration": f"{user_collaboration_id}"},
+        headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 
             if response.status_code == 200:
                 retrieved_count = len(response.json()["Items"])
-                print(f"Session ID {session_id}: User '{username}' Has Retrieved {retrieved_count} Results For QDE Type ID '{random_qde_type}'")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Results For QDE Type ID '{random_qde_type}'")
             
             else:
-                print(f"Session ID {session_id}: Retrieving QDE Type Results By User '{username}' Has Failed With Error Code {response.status_code}")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving QDE Type Results By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
