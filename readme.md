@@ -15,14 +15,18 @@ Enterprise-Grade Python Load/Performance Testing Framework
 
 > One-Time Commands
 
-1. `docker build -t exoddos:1.2.1 .`
-2. `docker run -it --name exoddos -p 5557:5557 -p 8089:8089 exoddos:1.2.1`
+1. `docker build -t exoddos:1.3.2 .`
+2. `docker run -it --name exoddos -p 5557:5557 -p 8089:8089 exoddos:1.3.2`
 
 > Reuse exoDDoS Container
 
-3. `docker start -ai exoddos`
-4. `docker stop exoddos`
-5. `docker ps -a` - utility command to display all local containers
+1. `docker start -ai exoddos`
+2. `docker stop exoddos`
+
+> Utility Docker Commands
+
+- list all local images: `docker images --all`
+- list all local containers: `docker ps --all`
 
 > Run As Debug User
 
@@ -55,9 +59,9 @@ Running exoDDoS as a debug user without Docker requires setting a pair of enviro
 
 *Updating the requirements as per the steps above will convert the requirements file to UCS-2 LE BOM (UNICODE) format so make sure to convert it back to UTF-8 without BOM (ASCII) format, otherwise some GIT clients will see it as a binary file rather than a text file and won't be able to properly resolve the deltas. Alternatively, update the requirements by executing `pip freeze | Out-File -Encoding ASCII requirements.txt`.*
 
-> Prune Docker Images
+> Prune All Local Docker Data
 
-To start fresh in Docker, execute `docker system prune` and then type `y` when prompted to. Make sure to read carefully what images you are pruning, as this will delete all Docker images currently present on the system.
+To start fresh in Docker, execute `docker system prune --all --volumes` and then type `y` when prompted to. Make sure to read carefully what you are pruning, as this will delete all stopped containers, all networks not used by at least one container, all volumes not used by at least one container, all images without at least one container associated to them and all build cache.
 
 > Accessing The WEB UI
 
