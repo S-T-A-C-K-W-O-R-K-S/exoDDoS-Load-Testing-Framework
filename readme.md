@@ -1,4 +1,4 @@
-### exoDDoS
+### exoDDoS (CBPm Implementation)
 Enterprise-Grade Python Load/Performance Testing Framework
 
 ***
