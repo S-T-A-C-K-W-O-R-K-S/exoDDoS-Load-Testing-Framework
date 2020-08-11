@@ -1,4 +1,4 @@
-### exoDDoS CSDB
+### exoDDoS (CSDB Implementation)
 Enterprise-Grade Python Load/Performance Testing Framework
 
 ***
