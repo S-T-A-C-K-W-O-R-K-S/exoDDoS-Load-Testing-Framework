@@ -5,7 +5,7 @@ from environment.utility import utility
 
 def get_workflow(self):
 
-    with self.client.get(f"/Workflows",
+    with self.client.get("/Workflows",
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 

@@ -5,7 +5,7 @@ from environment.utility import utility
 
 def get_advanced_search(self, page_size, page):
 
-    with self.client.get(f"/DocumentClasses",
+    with self.client.get("/DocumentClasses",
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 
@@ -30,7 +30,7 @@ def get_advanced_search(self, page_size, page):
         self.interrupt()
 
     with self.client.get(f"/Documents/Search?IDDocumentClass={random_document_class}&pageSize={page_size}&page={page}",
-        name=f"/Documents/Search?IDDocumentClass={random_document_class}",
+        name=f"/api/v1/Documents/Search?IDDocumentClass={random_document_class}",
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 

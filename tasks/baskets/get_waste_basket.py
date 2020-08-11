@@ -2,7 +2,7 @@ from environment.utility import utility
 
 
 def get_waste_basket(self):
-    with self.client.get(f"/Baskets/WasteBasket",
+    with self.client.get("/Baskets/WasteBasket",
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 

@@ -30,7 +30,7 @@ def on_start_setup(self):
 
 def authenticate(self):
 
-    with self.client.post(f"/Auth/Login",
+    with self.client.post("/Auth/Login",
         json={"Username": f"{self.username}", "Password": f"{self.password}"},
         catch_response=True) as response:
 
@@ -53,7 +53,7 @@ def authenticate(self):
                 else:
                     print(utility.timestamp(self) + f"________NO_SESSION: Logging In As '{self.username}' Has Failed With Error Code {response.status_code}")
 
-    with self.client.post(f"/Auth/Disclaimer",
+    with self.client.post("/Auth/Disclaimer",
         headers={"session-id": f"{session_id}", "Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
         catch_response=True) as response:
 
@@ -67,7 +67,7 @@ def authenticate(self):
             else:
                 print(utility.timestamp(self) + f"Session ID {session_id}: Accepting The Disclaimer By User '{self.username}' Has Failed With Error Code {response.status_code}")
 
-    with self.client.get(f"/Home/Configuration",
+    with self.client.get("/Home/Configuration",
         headers={"Cookie": f".AspNet.ApplicationCookie={session_cookie}"},
         catch_response=True) as response:
 

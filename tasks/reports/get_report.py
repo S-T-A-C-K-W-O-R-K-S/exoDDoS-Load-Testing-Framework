@@ -5,7 +5,7 @@ from environment.utility import utility
 
 def get_report(self, filters):
 
-    with self.client.get(f"/Report",
+    with self.client.get("/Report",
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 
@@ -30,7 +30,7 @@ def get_report(self, filters):
         self.interrupt()
 
     with self.client.get(f"/Report/{random_report}/data?filterOperatorList={filters}",
-        name=f"/Report/{random_report}/data",
+        name=f"/api/v1/Report/{random_report}/data",
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 
