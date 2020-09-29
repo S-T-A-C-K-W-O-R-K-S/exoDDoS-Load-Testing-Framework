@@ -17,7 +17,7 @@ def get_advanced_search(self, page_size, page):
                 for document_class_id in response.json()["Items"]:
                     document_classes.append(document_class_id["ID"])
 
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Document Classes For An Advanced Search")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Document Class(es) For An Advanced Search")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving Document Classes By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
@@ -37,7 +37,7 @@ def get_advanced_search(self, page_size, page):
             if response.status_code == 200:
                 retrieved_count = len(response.json()["Items"])
                 total_count = response.json()["Count"]
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Advanced Search Results Out Of A Total Of {total_count} For Document Class ID '{random_document_class}'")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Advanced Search Result(s) Out Of A Total Of {total_count} For Document Class ID '{random_document_class}'")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving Advanced Search Results By User '{self.user.username}' Has Failed With Error Code {response.status_code}")

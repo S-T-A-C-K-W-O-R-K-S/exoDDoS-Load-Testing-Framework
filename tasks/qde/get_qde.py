@@ -17,7 +17,7 @@ def get_qde(self):
                 for qde_type_id in response.json()["Items"]:
                     qde_types.append(qde_type_id["IDParameter"])
 
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} QDE Types")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} QDE Type(s)")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving QDE Types By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
@@ -37,7 +37,7 @@ def get_qde(self):
 
             if response.status_code == 200:
                 retrieved_count = len(response.json()["Items"])
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Results For QDE Type ID '{random_qde_type}'")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Result(s) For QDE Type ID '{random_qde_type}'")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving QDE Type Results By User '{self.user.username}' Has Failed With Error Code {response.status_code}")

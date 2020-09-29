@@ -11,7 +11,7 @@ def get_user_settings(self, top):
             if response.status_code == 200:
                 retrieved_count = len(response.json()["Items"])
                 total_count = response.json()["Count"]
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved The Settings For {retrieved_count} Users Out Of A Total Of {total_count}")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved The Settings For {retrieved_count} User(s) Out Of A Total Of {total_count}")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving The Settings For Users By User '{self.user.username}' Has Failed With Error Code {response.status_code}")

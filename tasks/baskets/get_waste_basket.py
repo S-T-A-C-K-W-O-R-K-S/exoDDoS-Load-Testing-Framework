@@ -8,7 +8,7 @@ def get_waste_basket(self):
 
             if response.status_code == 200:
                 retrieved_count = len(response.json()["Items"])
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Waste Basket Items")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Waste Basket Item(s)")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving Waste Basket Items By User '{self.user.username}' Has Failed With Error Code {response.status_code}")

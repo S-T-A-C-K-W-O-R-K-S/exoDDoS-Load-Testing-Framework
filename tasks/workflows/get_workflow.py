@@ -17,7 +17,7 @@ def get_workflow(self):
                 for workflow in response.json()["Items"]:
                     workflows.append(workflow["ID"])
 
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Workflows")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Workflow(s)")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving Workflows By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
@@ -36,12 +36,12 @@ def get_workflow(self):
             document_classes = []
 
             if response.status_code == 200:
-                retrieved_count = len(response.json()["Items"])
+                retrieved_count = len(response.json())
 
-                for document_class_id in response.json()["Items"]:
+                for document_class_id in response.json():
                     document_classes.append(document_class_id["IDDocumentClass"])
 
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Document Classes For Workflow ID '{random_workflow}'")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Document Class(es) For Workflow ID '{random_workflow}'")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving Document Classes For Workflow ID '{random_workflow}' By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
@@ -60,7 +60,7 @@ def get_workflow(self):
             if response.status_code == 200:
                 retrieved_count = len(response.json())
 
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Steps For Workflow ID '{random_workflow}'")
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Step(s) For Workflow ID '{random_workflow}'")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving Steps For Workflow ID '{random_workflow}' By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
