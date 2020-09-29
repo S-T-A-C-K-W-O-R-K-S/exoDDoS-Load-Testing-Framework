@@ -24,7 +24,7 @@ def on_start_setup(self):
             raise StopUser
 
     elif len(exoddos.user_pool) == 0:
-        print("The Swarm Has Exceeded The Number Of Available Credentials")
+        print(utility.timestamp(self) + "The Swarm Has Exceeded The Number Of Available Credentials")
         raise StopUser
 
 
