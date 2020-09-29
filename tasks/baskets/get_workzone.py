@@ -6,9 +6,16 @@ def get_workzone(self):
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 
+            workzone_items = []
+
             if response.status_code == 200:
-                retrieved_count = len(response.json()["Items"])
-                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Workzone Items")
+                for item in response.json()["Items"]:
+                    workzone_items.append({"document-id": item["IDDocument"], "document-key": item["DocumentKey"]})
+
+                retrieved_count = len(workzone_items)
+                print(utility.timestamp(self) + f"Session ID {self.user.session_id}: User '{self.user.username}' Has Retrieved {retrieved_count} Workzone Item(s)")
             
             else:
                 print(utility.timestamp(self) + f"Session ID {self.user.session_id}: Retrieving Workzone Items By User '{self.user.username}' Has Failed With Error Code {response.status_code}")
+
+            return workzone_items
