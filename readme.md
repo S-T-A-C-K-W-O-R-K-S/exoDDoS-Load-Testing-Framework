@@ -15,8 +15,8 @@ Enterprise-Grade Python Load/Performance Testing Framework
 
 > One-Time Commands
 
-1. `docker build -t exoddos:1.3.2 .`
-2. `docker run -it --name exoddos -p 5557:5557 -p 8089:8089 exoddos:1.3.2`
+1. `docker build -t exoddos:1.5.1 .`
+2. `docker run -it --name exoddos -p 5557:5557 -p 8089:8089 exoddos:1.5.1`
 
 > Reuse exoDDoS Container
 
