@@ -1,4 +1,4 @@
-FROM locustio/locust:1.1.1
+FROM locustio/locust:1.2.3
 
 WORKDIR /exoDDoS
 COPY . .
