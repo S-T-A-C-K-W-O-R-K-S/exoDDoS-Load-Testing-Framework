@@ -3,6 +3,8 @@ import gevent, time
 from locust import events, runners
 from locust.runners import STATE_CLEANUP, STATE_STOPPING, STATE_STOPPED, WorkerRunner
 
+from environment.exoddos import exoddos
+
 
 def checker(environment):
     while not environment.runner.state in [STATE_CLEANUP, STATE_STOPPING, STATE_STOPPED]:
@@ -12,6 +14,8 @@ def checker(environment):
             print(f"Test Run Will Terminate Prematurely Due To A Failure Rate Of {environment.runner.stats.total.fail_ratio}")
             print()
 
+            exoddos.high_failure_rate = True
+
             environment.runner.quit()  # cleanup may potentially take a while, since all running tasksets need to be interrupted
             return
 
@@ -20,3 +24,5 @@ def checker(environment):
 def on_init(environment, **_kwargs):
     if not isinstance(environment.runner, WorkerRunner):  # evaluates to TRUE if the runner is either LocalRunner or MasterRunner
         gevent.spawn(checker, environment)
+
+# Framework States: STATE_INIT, STATE_SPAWNING, STATE_RUNNING, STATE_CLEANUP, STATE_STOPPING, STATE_STOPPED, STATE_MISSING
