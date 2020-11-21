@@ -29,8 +29,8 @@ def get_advanced_search(self, page_size, page):
     else:
         self.interrupt()
 
-    with self.client.get(f"/Documents/Search?IDDocumentClass={random_document_class}&pageSize={page_size}&page={page}",
-        name=f"/api/v1/Documents/Search?IDDocumentClass={random_document_class}",
+    with self.client.get(f"/Documents/Search/Paged?IDDocumentClass={random_document_class}&pageSize={page_size}&page={page}",
+        name=f"/api/v1/Documents/Search/Paged?IDDocumentClass={random_document_class}",
         headers={"session-id": f"{self.user.session_id}", "Cookie": f".AspNet.ApplicationCookie={self.user.session_cookie}", "CBPm-IDCollaboration": f"{self.user.collaboration_id}"},
         catch_response=True) as response:
 
