@@ -42,7 +42,7 @@ def authenticate(self):
                     cookies = response.cookies.get_dict()
 
                     for cookie in cookies:
-                        print(f"[DEBUG] :: {cookie}: {cookies[cookie]}")
+                        print(utility.timestamp(self) + f"[DEBUG] :: {cookie}: {cookies[cookie]}")
 
                 cookie_play_session = "PLAY_SESSION=" + response.cookies["PLAY_SESSION"]
                 cookie_credentials = "CREDENTIALS=" + response.cookies["CREDENTIALS"]

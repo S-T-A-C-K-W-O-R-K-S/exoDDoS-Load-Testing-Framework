@@ -1,12 +1,11 @@
 from environment.utility import utility
-
 from environment.exoddos import exoddos
 
 
 def on_stop_teardown(self):
 
     if exoddos.debug_mode:
-        print("[DEBUG] :: Cookie Header: " + self.cookie_header)
+        print(utility.timestamp(self) + f"[DEBUG] :: Cookie Header: {self.cookie_header}")
 
     if self.session_id == "NO_SESSION":
         print(utility.timestamp(self) + f"________NO_SESSION: User '{self.username}' Without Session Has Been Preemptively Terminated")
