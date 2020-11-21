@@ -36,6 +36,10 @@ To do so from a Docker container, append the `-e debug-user="USERNAME"` and `-e 
 
 Running exoDDoS as a debug user without Docker requires setting a pair of environment variables for the current terminal session, however achieving this depends on the shell in use. For instance, in PowerShell, the syntax would be `$ENV:debug-user="USERNAME"` and, respectively, `$ENV:debug-pass="PASSWORD"`.
 
+> Run With GrayLog Integration Support
+
+To integrate with GrayLog from a Docker container, append the `-e use-graylog="true"`, `-e graylog-ip="IP"` and `-e graylog-port="PORT"` flags while executing the run command for the Docker container.
+
 ***
 
 ### Troubleshooting
