@@ -1,4 +1,7 @@
+import graypy, logging
 from datetime import datetime
+
+from environment.exoddos import exoddos
 
 
 class utility:
@@ -14,3 +17,19 @@ class utility:
             timestamp += " "
 
         return timestamp
+
+
+class graylog:
+
+    logger = logging.getLogger("exoDDoS")
+    logger.setLevel(exoddos.graylog_log_level)
+
+    handler = graypy.GELFUDPHandler(exoddos.graylog_ip, exoddos.graylog_port)
+    
+    # GELFUDPHandler    -   UDP log forwarding
+    # GELFTCPHandler    -   TCP log forwarding
+    # GELFTLSHandler    -   TCP log forwarding with TLS support
+    # GELFHTTPHandler   -   HTTP log forwarding
+    # GELFRabbitHandler -   RabbitMQ log forwarding
+
+    logger.addHandler(handler)
