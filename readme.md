@@ -1,5 +1,5 @@
 ### exoDDoS
-Enterprise-Grade Python Load/Performance Testing Framework
+Enterprise-Grade Python-Based Performance Testing Framework
 
 ***
 
